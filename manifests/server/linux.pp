@@ -16,6 +16,9 @@
 # [*newrelic_license_key*]
 #   Specify your Newrelic License Key.
 #
+# [*newrelic_nrsysmond_labels*]
+#   A hash (dictionary) of label key and values.
+#
 # === Variables
 #
 # === Examples
@@ -50,6 +53,14 @@ class newrelic::server::linux (
   $newrelic_nrsysmond_pidfile        = undef,
   $newrelic_nrsysmond_collector_host = undef,
   $newrelic_nrsysmond_timeout        = undef,
+  $newrelic_nrsysmond_docker_connection = undef,
+  $newrelic_nrsysmond_docker_cert_path = undef,
+  $newrelic_nrsysmond_docker_cert    = undef,
+  $newrelic_nrsysmond_docker_key     = undef,
+  $newrelic_nrsysmond_docker_cacert  = undef,
+  $newrelic_nrsysmond_labels         = undef, # dictionary
+  $newrelic_nrsysmond_disable_nfs    = undef,
+  $newrelic_nrsysmond_disable_docker = undef,
 ) inherits ::newrelic {
 
   if ! $newrelic_license_key {
