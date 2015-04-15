@@ -156,3 +156,117 @@ collector_host=<%= @newrelic_nrsysmond_collector_host %>
 <%- if @newrelic_nrsysmond_timeout -%>
 timeout=<%= @newrelic_nrsysmond_timeout %>
 <%- end -%>
+
+#
+# Setting: docker_connection
+# Type   : string
+# Purpose: Determine how to communicate with the Docker API on the local host.
+#          Valid values are:
+#
+#          uds:///path/to/socket
+#          unix:///path/to/socket
+#          /path/to/socket
+#            These three forms are all equivalent and are used to point to the
+#            UNIX-domain socket (UDS). The socket path must be absolute and the
+#            socket must be writeable.
+#
+#          tcp://localhost:port
+#          http://localhost:port
+#            Use an unencrypted connection to the local host on the specified
+#            port. If the :port portion is missing it defaults to 2376. The
+#            host name MUST be localhost or 127.0.0.1. No other host name is
+#            valid.
+#
+#          https://localhost:port
+#            Use an encrypted connection to the local host om the specified
+#            port. If the :port portion is missing it defaults to 2376. The
+#            host name MUST be localhost or 127.0.0.1. No other host name is
+#            valid. In order to use TLS authentication you may need to set
+#            the various key and certificate options below.
+#
+#          If no value is set, attempt to use the default (/var/run/docker.sock)
+#          if it exists and is writable. If that fails, attempt to use the value
+#          of the environment variable DOCKER_HOST.
+#
+#          You may need to add the user that you run LSM as to the docker
+#          group. Please consult the Docker web site for details and security
+#          implications.
+# Default: empty
+#docker_connection=
+<%- if @newrelic_nrsysmond_docker_connection -%>
+docker_connection=<%= @newrelic_nrsysmond_docker_connection %>
+<%- end -%>
+
+#
+# Setting: docker_cert_path
+# Type   : string
+# Purpose: Set the default location to look for the certificate, key and CA
+#          certificate for using TLS. If no value is set and the directory
+#          $HOME/.docker exists, that is used as the default value. LSM will
+#          look in this directory for the cert.pem, key.pem and cacert.pem
+#          files, and use them if present. If set, the environment variable
+#          $DOCKER_CERT_PATH will be used as the default value if no value
+#          is explicitly set here.
+# Default: empty
+#docker_cert_path=
+<%- if @newrelic_nrsysmond_docker_cert_path -%>
+docker_cert_path=<%= @newrelic_nrsysmond_docker_cert_path %>
+<%- end -%>
+
+#
+# Setting: docker_cert
+#          docker_key
+#          docker_cacert
+# Type   : string
+# Purpose: Set the name of the certificate, key and CA certificate files to
+#          use for TLS. If these are not absolute paths they are searched for
+#          in the directory determined by docker_cert_path above.
+# Default: empty
+#docker_cert=
+#docker_key=
+#docker_cacert=
+<%- if @newrelic_nrsysmond_docker_cert -%>
+docker_cert=<%= @newrelic_nrsysmond_docker_cert %>
+<%- end -%>
+<%- if @newrelic_nrsysmond_docker_key -%>
+docker_key=<%= @newrelic_nrsysmond_docker_key %>
+<%- end -%>
+<%- if @newrelic_nrsysmond_docker_cacert -%>
+docker_cacert=<%= @newrelic_nrsysmond_docker_cacert %>
+<%- end -%>
+
+#
+# Option : labels
+# Value  : A series of label_type/label_value pairings
+#          Each item in the pair is separated by a colon
+#          Each pair is separated by a semicolon
+#          e.g.
+#            labels = Environment:Production;DataCenter:EastUS;
+# Default: none
+#
+#labels=label_type:label_value
+<%- if @newrelic_nrsysmond_labels -%>
+labels=<% @newrelic_nrsysmond_labels.each do |key, val| %><%= key %>:<%= val %>;<% end -%>
+<%- end -%>
+
+#
+# Option : disable_nfs
+# Type   : boolean
+# Value  : Set to true to disable NFS client statistics gathering.
+# Default: false
+#
+#disable_nfs=false
+<%- if @newrelic_nrsysmond_disable_nfs -%>
+disable_nfs=<%= @newrelic_nrsysmond_disable_nfs %>
+<%- end -%>
+
+#
+# Option : disable_docker
+# Type   : boolean
+# Value  : Set to true to disable Docker container statistics gathering.
+# Default: false
+#
+#disable_docker=false
+<%- if @newrelic_nrsysmond_disable_docker -%>
+disable_docker=<%= @newrelic_nrsysmond_disable_docker %>
+<%- end -%>
